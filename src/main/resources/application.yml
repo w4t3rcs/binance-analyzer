@@ -1,10 +1,22 @@
 spring:
   application:
     name: crypto-analyzer
+  profiles:
+    active: "${ACTIVE_PROFILE:dev}"
+  cache:
+    type: redis
+    cache-names: redis-cache
+    redis:
+      time-to-live: 5m
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     consumer:
-      group-id: market.chart.group
+      group-id: ${KAFKA_GROUP_ID}
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring:
@@ -13,8 +25,6 @@ spring:
               packages:
                 com.w4t3rcs.cryptoanalyzer.*
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-    template:
-      default-topic: market.chart.topic

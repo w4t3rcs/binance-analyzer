@@ -1,4 +1,4 @@
-package com.w4t3rcs.cryptoanalyzer.entity;
+package com.w4t3rcs.cryptoanalyzer.market;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor @NoArgsConstructor
-public class MarketChart implements Serializable {
+public class Chart implements Serializable {
     private String exchangeCode;
     private DirectionState directionState;
 

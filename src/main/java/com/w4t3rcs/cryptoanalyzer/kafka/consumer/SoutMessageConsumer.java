@@ -1,14 +1,14 @@
-package com.w4t3rcs.cryptoanalyzer.message.consumer;
+package com.w4t3rcs.cryptoanalyzer.kafka.consumer;
 
-import com.w4t3rcs.cryptoanalyzer.entity.MarketChart;
+import com.w4t3rcs.cryptoanalyzer.market.Chart;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestMessageConsumer implements MessageConsumer {
+public class SoutMessageConsumer implements MessageConsumer {
     @Override
     @KafkaListener(topics = "market.chart.topic")
-    public void listen(MarketChart message) {
+    public void listen(Chart message) {
         System.out.println(message);
     }
 }
