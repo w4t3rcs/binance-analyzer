@@ -3,11 +3,6 @@ spring:
     name: crypto-analyzer
   profiles:
     active: "${ACTIVE_PROFILE:dev}"
-  cache:
-    type: redis
-    cache-names: redis-cache
-    redis:
-      time-to-live: 5m
   data:
     redis:
       host: ${REDIS_HOST}

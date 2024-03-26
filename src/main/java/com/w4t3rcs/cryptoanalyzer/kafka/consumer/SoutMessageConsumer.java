@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SoutMessageConsumer implements MessageConsumer {
     @Override
-    @KafkaListener(topics = "market.chart.topic")
+//    @KafkaListener(topics = "market.chart.topic")
     public void listen(Chart message) {
         System.out.println(message);
     }
