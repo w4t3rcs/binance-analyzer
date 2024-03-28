@@ -1,13 +1,14 @@
-package com.w4t3rcs.cryptoanalyzer.kafka.producer;
+package com.w4t3rcs.cryptoanalyzer.message.kafka.producer;
 
-import com.w4t3rcs.cryptoanalyzer.market.Chart;
+import com.w4t3rcs.cryptoanalyzer.entity.Chart;
+import com.w4t3rcs.cryptoanalyzer.message.MessageProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class DefaultMarketChartProducer implements MessageProducer {
+public class KafkaMessageProducer implements MessageProducer<Chart> {
     private final KafkaTemplate<String, Chart> kafkaTemplate;
 
     @Override

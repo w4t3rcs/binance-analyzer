@@ -1,5 +1,6 @@
-package com.w4t3rcs.cryptoanalyzer.market;
+package com.w4t3rcs.cryptoanalyzer.dto;
 
+import com.w4t3rcs.cryptoanalyzer.entity.Interval;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,14 +8,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
-import java.time.Duration;
 
 @RedisHash(value = "KlineAnalyzerProperties")
 @Data
 @AllArgsConstructor @NoArgsConstructor
-public class KlineAnalyzerProperties implements Serializable {
+public class KlineUrlDto implements Serializable {
     @Id
     private String exchangeCode;
-    private Duration interval;
+    private Interval interval;
     private short limit;
 }

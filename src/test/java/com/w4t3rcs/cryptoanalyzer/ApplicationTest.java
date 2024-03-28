@@ -1,6 +1,7 @@
 package com.w4t3rcs.cryptoanalyzer;
 
-import com.w4t3rcs.cryptoanalyzer.market.KlineAnalyzerProperties;
+import com.w4t3rcs.cryptoanalyzer.entity.Interval;
+import com.w4t3rcs.cryptoanalyzer.dto.KlineUrlDto;
 import com.w4t3rcs.cryptoanalyzer.redis.dao.KlineAnalyzerPropertiesRepository;
 import com.w4t3rcs.cryptoanalyzer.service.ExchangeCodeUrlBuilderService;
 import com.w4t3rcs.cryptoanalyzer.service.KlineUrlBuilderService;
@@ -8,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
-
-import java.time.Duration;
 
 @RequiredArgsConstructor
 @SpringBootTest
@@ -21,10 +20,10 @@ class ApplicationTest {
         var analyzerPropertiesRepository = applicationContext.getBean(KlineAnalyzerPropertiesRepository.class);
 //      --------
         String exchangeCode = "ETH";
-        Duration interval = Duration.ofMinutes(1);
+        Interval interval = Interval.SECOND;
         short limit = 50;
 
-        var testAnalyzerProperties = new KlineAnalyzerProperties(exchangeCode, interval, limit);
+        var testAnalyzerProperties = new KlineUrlDto(exchangeCode, interval, limit);
         analyzerPropertiesRepository.save(testAnalyzerProperties);
 
         System.out.println(analyzerPropertiesRepository.findById(exchangeCode).orElseThrow());

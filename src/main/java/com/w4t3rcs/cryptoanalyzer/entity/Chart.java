@@ -1,4 +1,4 @@
-package com.w4t3rcs.cryptoanalyzer.market;
+package com.w4t3rcs.cryptoanalyzer.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
