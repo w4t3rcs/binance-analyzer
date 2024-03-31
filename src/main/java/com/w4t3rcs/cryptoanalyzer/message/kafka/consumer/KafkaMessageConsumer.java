@@ -2,9 +2,9 @@ package com.w4t3rcs.cryptoanalyzer.message.kafka.consumer;
 
 import com.w4t3rcs.cryptoanalyzer.entity.Chart;
 import com.w4t3rcs.cryptoanalyzer.message.MessageConsumer;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class KafkaMessageConsumer implements MessageConsumer<Chart> {
     @Override
 //    @KafkaListener(topics = "market.chart.topic")

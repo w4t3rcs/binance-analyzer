@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class KlineUrlBuilderService implements ExchangeCodeUrlBuilderService {
+public class KlineUrlBuilder implements ExchangeCodeUrlBuilder {
     private final KlineAnalyzerPropertiesRepository repository;
 
     public String getUrl(String exchangeCode) {
