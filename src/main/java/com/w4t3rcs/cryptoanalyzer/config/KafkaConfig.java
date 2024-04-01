@@ -1,6 +1,6 @@
 package com.w4t3rcs.cryptoanalyzer.config;
 
-import com.w4t3rcs.cryptoanalyzer.entity.Chart;
+import com.w4t3rcs.cryptoanalyzer.binance.entity.Chart;
 import com.w4t3rcs.cryptoanalyzer.message.kafka.filter.ParentFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,7 @@
-package com.w4t3rcs.cryptoanalyzer.dto;
+package com.w4t3rcs.cryptoanalyzer.binance.dto;
 
-import com.w4t3rcs.cryptoanalyzer.entity.Interval;
+import com.w4t3rcs.cryptoanalyzer.binance.entity.ExchangeSymbol;
+import com.w4t3rcs.cryptoanalyzer.binance.entity.Interval;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,12 +10,12 @@ import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 
-@RedisHash(value = "KlineAnalyzerProperties")
+@RedisHash(value = "KlineUrlDto")
 @Data
 @AllArgsConstructor @NoArgsConstructor
 public class KlineUrlDto implements Serializable {
     @Id
-    private String exchangeCode;
+    private ExchangeSymbol symbol;
     private Interval interval;
     private short limit;
 }

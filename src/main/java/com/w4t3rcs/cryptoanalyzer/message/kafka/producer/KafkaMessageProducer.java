@@ -1,6 +1,6 @@
 package com.w4t3rcs.cryptoanalyzer.message.kafka.producer;
 
-import com.w4t3rcs.cryptoanalyzer.entity.Chart;
+import com.w4t3rcs.cryptoanalyzer.binance.entity.Chart;
 import com.w4t3rcs.cryptoanalyzer.message.MessageProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;

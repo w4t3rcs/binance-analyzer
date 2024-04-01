@@ -21,7 +21,7 @@ public class StarterScenario extends AbstractScenario {
     public SendMessage buildScenario(Update update) {
         if (update.hasMessage() && update.getMessage().getText().equals("/start")) {
             SendMessage message = this.getMessageBuilder().build(this.getMessagesFromClasspath().getProperty("starter"), update);
-            this.getButtonAppender().appendButton(message, this.getMessagesFromClasspath(), "pattern-matcher.starter.button");
+            this.getButtonAppender().append(message, this.getMessagesFromClasspath(), "pattern-matcher.starter.button");
             return message;
         } else {
             if (update.hasCallbackQuery() && update.getCallbackQuery().getData().equals("pattern-matcher.starter.button")) {

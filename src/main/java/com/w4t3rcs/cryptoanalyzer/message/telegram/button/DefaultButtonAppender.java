@@ -10,7 +10,7 @@ import java.util.*;
 @Service
 public class DefaultButtonAppender implements ButtonAppender {
     @Override
-    public void appendButton(SendMessage message, Properties messages, String... buttonIds) {
+    public void append(SendMessage message, Properties messages, String... buttonIds) {
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
 

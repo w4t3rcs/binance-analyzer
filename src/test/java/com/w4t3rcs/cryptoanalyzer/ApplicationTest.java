@@ -1,10 +1,11 @@
 package com.w4t3rcs.cryptoanalyzer;
 
-import com.w4t3rcs.cryptoanalyzer.entity.Interval;
-import com.w4t3rcs.cryptoanalyzer.dto.KlineUrlDto;
+import com.w4t3rcs.cryptoanalyzer.binance.entity.ExchangeSymbol;
+import com.w4t3rcs.cryptoanalyzer.binance.entity.Interval;
+import com.w4t3rcs.cryptoanalyzer.binance.dto.KlineUrlDto;
 import com.w4t3rcs.cryptoanalyzer.redis.dao.KlineAnalyzerPropertiesRepository;
-import com.w4t3rcs.cryptoanalyzer.service.ExchangeCodeUrlBuilder;
-import com.w4t3rcs.cryptoanalyzer.service.KlineUrlBuilder;
+import com.w4t3rcs.cryptoanalyzer.binance.url.ExchangeSymbolUrlBuilder;
+import com.w4t3rcs.cryptoanalyzer.binance.url.KlineUrlBuilder;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,16 +20,17 @@ class ApplicationTest {
     void test() {
         var analyzerPropertiesRepository = applicationContext.getBean(KlineAnalyzerPropertiesRepository.class);
 //      --------
-        String exchangeCode = "ETH";
+        ExchangeSymbol symbol = new ExchangeSymbol();
+        symbol.setCode("ETHBTC");
         Interval interval = Interval.SECOND;
         short limit = 50;
 
-        var testAnalyzerProperties = new KlineUrlDto(exchangeCode, interval, limit);
+        var testAnalyzerProperties = new KlineUrlDto(symbol, interval, limit);
         analyzerPropertiesRepository.save(testAnalyzerProperties);
 
-        System.out.println(analyzerPropertiesRepository.findById(exchangeCode).orElseThrow());
-        ExchangeCodeUrlBuilder urlBuilderService = applicationContext.getBean(KlineUrlBuilder.class);
-        System.out.println(urlBuilderService.getUrl(exchangeCode));
+        System.out.println(analyzerPropertiesRepository.findById(symbol).orElseThrow());
+        ExchangeSymbolUrlBuilder urlBuilderService = applicationContext.getBean(KlineUrlBuilder.class);
+        System.out.println(urlBuilderService.getUrl(symbol));
 //      --------
         analyzerPropertiesRepository.deleteAll();
     }

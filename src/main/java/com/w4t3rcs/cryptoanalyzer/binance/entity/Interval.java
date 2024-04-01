@@ -1,4 +1,4 @@
-package com.w4t3rcs.cryptoanalyzer.entity;
+package com.w4t3rcs.cryptoanalyzer.binance.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

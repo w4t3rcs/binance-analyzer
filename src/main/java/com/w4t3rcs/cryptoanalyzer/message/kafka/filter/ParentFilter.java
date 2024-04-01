@@ -1,6 +1,6 @@
 package com.w4t3rcs.cryptoanalyzer.message.kafka.filter;
 
-import com.w4t3rcs.cryptoanalyzer.entity.Chart;
+import com.w4t3rcs.cryptoanalyzer.binance.entity.Chart;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.kafka.listener.adapter.RecordFilterStrategy;
