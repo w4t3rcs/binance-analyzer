@@ -29,9 +29,9 @@ public class PatternMatcherDefaultConfigurationScenario extends AbstractScenario
 
     @Override
     public SendMessage buildScenario(Update update, TelegramSession session) {
-        KlineUrlDto save = propertiesRepository.save(new KlineUrlDto(session.getPatternMatcherCode().getCode(), Interval.SECOND, (short) 50));
-        System.out.println(save);
+        propertiesRepository.save(new KlineUrlDto(session.getPatternMatcherCode().getCode(), Interval.SECOND, (short) 50));
         session.setCurrentScenario(patternMatcherStarterScenario);
-        return patternMatcherStarterScenario.buildScenario(update, session);
+        System.setProperty("application.pattern-matcher.enabled", "true");
+        return this.getMessageBuilder().build("pattern-matcher.configuration.other.result", update);
     }
 }

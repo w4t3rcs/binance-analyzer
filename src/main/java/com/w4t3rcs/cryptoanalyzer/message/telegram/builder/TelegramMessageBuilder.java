@@ -13,6 +13,7 @@ import java.util.Properties;
 @Service
 public class TelegramMessageBuilder implements MessageBuilder<SendMessage, String, Update> {
     private final Properties messagesFromClasspath;
+    private Long id;
 
     @Autowired
     public TelegramMessageBuilder(@Qualifier("scenariosFromClasspath") Properties messagesFromClasspath) {
@@ -37,10 +38,18 @@ public class TelegramMessageBuilder implements MessageBuilder<SendMessage, Strin
     }
 
     private void setChatId(SendMessage sendMessage, Update update) {
-        if (update.hasCallbackQuery()) {
-            sendMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
-        } else if (update.hasMessage()) {
-            sendMessage.setChatId(update.getMessage().getChatId());
+        if (this.id == null) {
+            if (update.hasCallbackQuery()) {
+                Long chatId = update.getCallbackQuery().getMessage().getChatId();
+                sendMessage.setChatId(chatId);
+                this.id = chatId;
+            } else if (update.hasMessage()) {
+                Long chatId = update.getMessage().getChatId();
+                sendMessage.setChatId(chatId);
+                this.id = chatId;
+            }
+        } else {
+            sendMessage.setChatId(this.id);
         }
     }
 }

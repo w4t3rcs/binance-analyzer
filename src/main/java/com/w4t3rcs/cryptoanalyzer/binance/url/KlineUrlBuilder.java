@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class KlineUrlBuilder implements ExchangeSymbolUrlBuilder {
+public class KlineUrlBuilder implements ExchangeCodeUrlBuilder {
     private final KlineAnalyzerPropertiesRepository repository;
 
     public String getUrl(ExchangeSymbol symbol) {

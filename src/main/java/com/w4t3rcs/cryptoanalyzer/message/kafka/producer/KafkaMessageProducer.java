@@ -13,6 +13,6 @@ public class KafkaMessageProducer implements MessageProducer<Chart> {
 
     @Override
     public void send(Chart message) {
-        kafkaTemplate.send("market.chart.topic", message);
+        kafkaTemplate.send("binance.chart.topic", message);
     }
 }

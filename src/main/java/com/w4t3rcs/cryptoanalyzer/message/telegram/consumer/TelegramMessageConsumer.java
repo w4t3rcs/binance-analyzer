@@ -14,14 +14,14 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Slf4j
 @Service
-public class TelegramMessageDirector implements MessageConsumer<Update> {
+public class TelegramMessageConsumer implements MessageConsumer<Update> {
     private final TelegramBot telegramBot;
     private final Scenario starterScenario;
     private final Scenario errorScenario;
     private final TelegramSession session;
 
     @Autowired
-    public TelegramMessageDirector(TelegramBot telegramBot, @Qualifier("starterScenario") Scenario starterScenario,
+    public TelegramMessageConsumer(TelegramBot telegramBot, @Qualifier("starterScenario") Scenario starterScenario,
                                    @Qualifier("errorScenario") Scenario errorScenario) {
         this.telegramBot = telegramBot;
         this.starterScenario = starterScenario;
@@ -39,10 +39,7 @@ public class TelegramMessageDirector implements MessageConsumer<Update> {
         } catch (Exception e) {
             log.warn("Something went wrong with telegram scenarios controlling :(");
             log.warn(e.getMessage());
-            try {
-                telegramBot.executeAsync(errorScenario.buildScenario(message, session));
-            } catch (Exception ignore) {
-            }
+            telegramBot.executeAsync(errorScenario.buildScenario(message, session));
         }
     }
 }
