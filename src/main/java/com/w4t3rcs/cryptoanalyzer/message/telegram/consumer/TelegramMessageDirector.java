@@ -1,6 +1,7 @@
 package com.w4t3rcs.cryptoanalyzer.message.telegram.consumer;
 
 import com.w4t3rcs.cryptoanalyzer.message.MessageConsumer;
+import com.w4t3rcs.cryptoanalyzer.message.telegram.dto.TelegramSession;
 import com.w4t3rcs.cryptoanalyzer.message.telegram.producer.TelegramBot;
 import com.w4t3rcs.cryptoanalyzer.message.telegram.scenario.Scenario;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ public class TelegramMessageDirector implements MessageConsumer<Update> {
     private final TelegramBot telegramBot;
     private final Scenario starterScenario;
     private final Scenario errorScenario;
+    private final TelegramSession session;
 
     @Autowired
     public TelegramMessageDirector(TelegramBot telegramBot, @Qualifier("starterScenario") Scenario starterScenario,
@@ -24,6 +26,7 @@ public class TelegramMessageDirector implements MessageConsumer<Update> {
         this.telegramBot = telegramBot;
         this.starterScenario = starterScenario;
         this.errorScenario = errorScenario;
+        this.session = new TelegramSession(starterScenario);
     }
 
     @Override
@@ -31,10 +34,15 @@ public class TelegramMessageDirector implements MessageConsumer<Update> {
     @RabbitHandler
     public void listen(Update message) {
         try {
-            telegramBot.executeAsync(starterScenario.buildScenario(message));
+            if (message.hasMessage() && message.getMessage().getText().equals("/start")) session.setCurrentScenario(starterScenario);
+            telegramBot.executeAsync(session.getCurrentScenario().buildScenario(message, session));
         } catch (Exception e) {
             log.warn("Something went wrong with telegram scenarios controlling :(");
-            telegramBot.executeAsync(errorScenario.buildScenario(message));
+            log.warn(e.getMessage());
+            try {
+                telegramBot.executeAsync(errorScenario.buildScenario(message, session));
+            } catch (Exception ignore) {
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.w4t3rcs.cryptoanalyzer.binance.dto;
 
-import com.w4t3rcs.cryptoanalyzer.binance.entity.ExchangeSymbol;
 import com.w4t3rcs.cryptoanalyzer.binance.entity.Interval;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor @NoArgsConstructor
 public class KlineUrlDto implements Serializable {
     @Id
-    private ExchangeSymbol symbol;
+    private String exchangeCode;
     private Interval interval;
     private short limit;
 }

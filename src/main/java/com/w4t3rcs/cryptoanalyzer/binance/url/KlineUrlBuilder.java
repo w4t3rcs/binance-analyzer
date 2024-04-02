@@ -13,10 +13,10 @@ public class KlineUrlBuilder implements ExchangeSymbolUrlBuilder {
     private final KlineAnalyzerPropertiesRepository repository;
 
     public String getUrl(ExchangeSymbol symbol) {
-        KlineUrlDto klineUrlDto = repository.findById(symbol)
+        KlineUrlDto klineUrlDto = repository.findById(symbol.getCode())
                 .orElseThrow(() -> new PropertiesNotFoundException("Kline analyzer properties haven't been found!"));
         return "https://api.binance.com/api/v3/klines?symbol=%s&interval=%s&limit=%d".formatted(
-                klineUrlDto.getSymbol().getCode(),
+                klineUrlDto.getExchangeCode(),
                 klineUrlDto.getInterval().getCode(),
                 klineUrlDto.getLimit()
         );

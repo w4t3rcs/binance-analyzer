@@ -2,6 +2,8 @@ package com.w4t3rcs.cryptoanalyzer.message.telegram.scenario;
 
 import com.w4t3rcs.cryptoanalyzer.message.MessageBuilder;
 import com.w4t3rcs.cryptoanalyzer.message.telegram.button.ButtonAppender;
+import com.w4t3rcs.cryptoanalyzer.message.telegram.dto.TelegramSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -9,26 +11,20 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
 public class StarterScenario extends AbstractScenario {
-    private final Scenario patternMatcherStarterScenario;
+    private final Scenario starterChooserScenario;
 
+    @Autowired
     public StarterScenario(MessageBuilder<SendMessage, String, Update> messageBuilder, ButtonAppender buttonAppender,
-                           @Qualifier("patternMatcherStarterScenario") Scenario patternMatcherStarterScenario) {
+                           @Qualifier("starterChooserScenario") Scenario starterChooserScenario) {
         super(messageBuilder, buttonAppender);
-        this.patternMatcherStarterScenario = patternMatcherStarterScenario;
+        this.starterChooserScenario = starterChooserScenario;
     }
 
     @Override
-    public SendMessage buildScenario(Update update) {
-        if (update.hasMessage() && update.getMessage().getText().equals("/start")) {
-            SendMessage message = this.getMessageBuilder().build(this.getMessagesFromClasspath().getProperty("starter"), update);
-            this.getButtonAppender().append(message, this.getMessagesFromClasspath(), "pattern-matcher.starter.button");
-            return message;
-        } else {
-            if (update.hasCallbackQuery() && update.getCallbackQuery().getData().equals("pattern-matcher.starter.button")) {
-                return this.patternMatcherStarterScenario.buildScenario(update);
-            } else {
-                return null;
-            }
-        }
+    public SendMessage buildScenario(Update update, TelegramSession session) {
+        SendMessage message = this.getMessageBuilder().build("starter", update);
+        this.getButtonAppender().append(message, "starter.button.pattern-matcher");
+        session.setCurrentScenario(starterChooserScenario);
+        return message;
     }
 }

@@ -25,10 +25,10 @@ class ApplicationTest {
         Interval interval = Interval.SECOND;
         short limit = 50;
 
-        var testAnalyzerProperties = new KlineUrlDto(symbol, interval, limit);
+        var testAnalyzerProperties = new KlineUrlDto(symbol.getCode(), interval, limit);
         analyzerPropertiesRepository.save(testAnalyzerProperties);
 
-        System.out.println(analyzerPropertiesRepository.findById(symbol).orElseThrow());
+        System.out.println(analyzerPropertiesRepository.findById(symbol.getCode()).orElseThrow());
         ExchangeSymbolUrlBuilder urlBuilderService = applicationContext.getBean(KlineUrlBuilder.class);
         System.out.println(urlBuilderService.getUrl(symbol));
 //      --------
